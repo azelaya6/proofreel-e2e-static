@@ -1,0 +1,33 @@
+version: 1
+name: Friendlier greeting
+slug: greeting
+title: Friendlier greeting
+baseUrl: http://127.0.0.1:8080
+pre:
+  - python3 -m http.server 8080 --bind 127.0.0.1
+defaults:
+  pauseMs: 500
+claims:
+  - id: greeting
+    caption: Say hello now shows a friendlier welcome
+    recorder: browser
+    sourceGlobs:
+      - index.html
+    steps:
+      - goto: /
+      - wait: "[data-testid=name]"
+      - mark: before
+      - pause: 800
+      - fill:
+          locator: "[data-testid=name]"
+          text: Ada
+      - click: "[data-testid=greet]"
+      - mark: action
+      - wait:
+          locator: "[data-testid=greeting]"
+          text: Welcome aboard, Ada!
+      - pause: 800
+      - mark: after
+    expect:
+      text: Welcome aboard, Ada!
+      at: after
