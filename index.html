@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ProofReel E2E (public)</title>
+    <style>
+      body { font-family: system-ui, sans-serif; max-width: 36rem; margin: 3rem auto; padding: 0 1rem; color: #0f172a; }
+      button { padding: 0.5rem 1rem; font-size: 1rem; }
+      #greeting { font-size: 1.5rem; margin-top: 1rem; min-height: 2rem; }
+    </style>
+  </head>
+  <body>
+    <h1 data-testid="app-title">ProofReel static demo</h1>
+    <p>A plain static page with one interactive feature.</p>
+    <label for="name">Your name</label>
+    <input id="name" data-testid="name" placeholder="Ada" />
+    <button id="greet" data-testid="greet">Say hello</button>
+    <p id="greeting" data-testid="greeting"></p>
+    <script>
+      document.getElementById("greet").addEventListener("click", () => {
+        const name = document.getElementById("name").value.trim() || "stranger";
+        document.getElementById("greeting").textContent = `Hello, ${name}!`;
+      });
+    </script>
+  </body>
+</html>
