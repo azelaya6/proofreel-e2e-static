@@ -3,12 +3,10 @@ name: ProofReel
 on:
   pull_request:
 
-# Copied from the ProofReel README ("GitHub Action" section).
 permissions:
-  id-token: write
+  id-token: write       # lets the Action prove which repo it runs in (OIDC); no secrets needed
   contents: read
-  pull-requests: write
-  checks: write
+  pull-requests: write  # only used for the fallback comment if the app is not installed
 
 jobs:
   video-proof:
@@ -16,16 +14,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # The README doesn't say how the app under test gets started. ProofReel
-      # only opens `baseUrl` from the spec, so serve the site ourselves first.
-      - name: Serve the static site
-        run: |
-          nohup python3 -m http.server 8080 --bind 127.0.0.1 > /tmp/http.log 2>&1 &
-          for i in $(seq 1 15); do curl -sf http://127.0.0.1:8080 >/dev/null && exit 0; sleep 1; done
-          cat /tmp/http.log; exit 1
-
-      # The README doesn't give a `uses:` line or the hosted service URL; both
-      # come from action.yml and the deploy docs.
-      - uses: azelaya6/proofreel@main
-        with:
-          service-url: https://api.proofreel.dev
+      - uses: azelaya6/proofreel-action@v1
