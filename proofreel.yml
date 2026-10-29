@@ -29,5 +29,5 @@ claims:
       - pause: 800
       - mark: after
     expect:
-      text: Welcome aboard, Ada!
+      text: This text is deliberately not on the page
       at: after
