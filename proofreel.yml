@@ -1,0 +1,24 @@
+version: 1
+name: ProofReel static demo
+slug: static
+baseUrl: http://127.0.0.1:8080
+pre:
+  - python3 -m http.server 8080 --bind 127.0.0.1
+claims:
+  - id: greet
+    caption: Enter a name and click Say hello
+    recorder: browser
+    steps:
+      - goto: /
+      - wait: "[data-testid=app-title]"
+      - fill:
+          locator: "[data-testid=name]"
+          text: Ada
+      - click: "[data-testid=greet]"
+      - wait:
+          locator: "[data-testid=greeting]"
+          text: "Hello, Ada!"
+      - mark: after
+    expect:
+      text: "Hello, Ada!"
+      at: after
